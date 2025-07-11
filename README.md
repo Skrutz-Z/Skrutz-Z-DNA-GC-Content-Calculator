@@ -2,6 +2,8 @@
 
 A comprehensive web application for analyzing DNA sequences and calculating GC content percentages. Built with Streamlit and designed for bioinformatics research and education.
 
+https://skrutz-z-dna-gc-content-calculator.streamlit.app/
+
 ## 🔐 Access
 **Password Protected Application** - Contact the administrator for access credentials.
 
