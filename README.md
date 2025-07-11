@@ -123,8 +123,7 @@ This is an academic project. For questions or suggestions, please contact the de
 
 ## 📞 Support
 
-For technical support or access requests, please contact the administrator.
+For technical support or access requests, please contact.
 
 ---
 
-**Made with ❤️ for the bioinformatics community** 
