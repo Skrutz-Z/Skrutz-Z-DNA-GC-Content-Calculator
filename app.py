@@ -17,6 +17,254 @@ from Bio.SeqRecord import SeqRecord
 import io
 import openpyxl
 
+# Custom CSS for professional styling
+def load_css():
+    st.markdown("""
+    <style>
+    /* Main background and overall styling */
+    .main {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #16213e 75%, #1a1a2e 100%);
+        color: #ffffff;
+    }
+    
+    .stApp {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #16213e 75%, #1a1a2e 100%);
+    }
+    
+    /* Sidebar styling */
+    .css-1d391kg {
+        background: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+        border-right: 2px solid #3498db;
+    }
+    
+    /* Header styling */
+    .main-header {
+        background: linear-gradient(90deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        border: 1px solid #3498db;
+    }
+    
+    .main-header h1 {
+        color: #ecf0f1;
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    /* Section styling */
+    .section-container {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 1rem 0;
+        border: 1px solid rgba(52, 152, 219, 0.3);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    
+    .section-header {
+        color: #3498db;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    /* Button styling */
+    .stButton > button {
+        background: linear-gradient(45deg, #3498db, #2980b9);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+    
+    .stButton > button:hover {
+        background: linear-gradient(45deg, #2980b9, #1f5f8b);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    }
+    
+    /* Input styling */
+    .stTextInput > div > div > input {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(52, 152, 219, 0.5);
+        border-radius: 10px;
+        color: white;
+        padding: 0.75rem;
+    }
+    
+    .stTextArea > div > div > textarea {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(52, 152, 219, 0.5);
+        border-radius: 10px;
+        color: white;
+        padding: 0.75rem;
+    }
+    
+    .stSelectbox > div > div > select {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(52, 152, 219, 0.5);
+        border-radius: 10px;
+        color: white;
+        padding: 0.75rem;
+    }
+    
+    /* File uploader styling */
+    .stFileUploader > div {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px dashed rgba(52, 152, 219, 0.5);
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+    }
+    
+    /* Radio button styling */
+    .stRadio > div {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        padding: 1rem;
+        border: 1px solid rgba(52, 152, 219, 0.3);
+    }
+    
+    /* Number input styling */
+    .stNumberInput > div > div > input {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(52, 152, 219, 0.5);
+        border-radius: 10px;
+        color: white;
+        padding: 0.75rem;
+    }
+    
+    /* Expander styling */
+    .streamlit-expanderHeader {
+        background: linear-gradient(45deg, #34495e, #2c3e50);
+        color: #ecf0f1;
+        border-radius: 10px;
+        font-weight: 600;
+        border: 1px solid rgba(52, 152, 219, 0.3);
+    }
+    
+    /* Success/Info/Warning styling */
+    .stSuccess {
+        background: rgba(46, 204, 113, 0.2);
+        border: 1px solid #2ecc71;
+        border-radius: 10px;
+        padding: 1rem;
+        color: #2ecc71;
+    }
+    
+    .stInfo {
+        background: rgba(52, 152, 219, 0.2);
+        border: 1px solid #3498db;
+        border-radius: 10px;
+        padding: 1rem;
+        color: #3498db;
+    }
+    
+    .stWarning {
+        background: rgba(241, 196, 15, 0.2);
+        border: 1px solid #f1c40f;
+        border-radius: 10px;
+        padding: 1rem;
+        color: #f1c40f;
+    }
+    
+    /* Dataframe styling */
+    .dataframe {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(52, 152, 219, 0.3);
+    }
+    
+    /* Download button styling */
+    .stDownloadButton > button {
+        background: linear-gradient(45deg, #27ae60, #229954);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+    }
+    
+    .stDownloadButton > button:hover {
+        background: linear-gradient(45deg, #229954, #1e8449);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+    }
+    
+    /* Progress bar styling */
+    .stProgress > div > div > div {
+        background: linear-gradient(90deg, #3498db, #2980b9);
+        border-radius: 10px;
+    }
+    
+    /* Sidebar expander styling */
+    .css-1d391kg .streamlit-expanderHeader {
+        background: linear-gradient(45deg, #2c3e50, #34495e);
+        color: #ecf0f1;
+        border-radius: 8px;
+        font-weight: 600;
+        border: 1px solid rgba(52, 152, 219, 0.3);
+    }
+    
+    /* Footer styling */
+    .footer {
+        text-align: center;
+        color: #bdc3c7;
+        font-size: 0.9rem;
+        margin-top: 3rem;
+        padding: 1rem;
+        border-top: 1px solid rgba(52, 152, 219, 0.3);
+    }
+    
+    /* Tool card styling */
+    .tool-card {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border: 1px solid rgba(52, 152, 219, 0.3);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    
+    /* Fragmenter specific styling */
+    .fragmenter-section {
+        background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.1) 100%);
+        border: 2px solid rgba(52, 152, 219, 0.5);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 1rem 0;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .main-header h1 {
+            font-size: 2rem;
+        }
+        
+        .section-container {
+            padding: 1rem;
+        }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # --- Instructions ---
 def show_instructions():
     st.markdown("""
@@ -489,77 +737,199 @@ def export_to_genbank(sequences, result_df):
     
     return output.getvalue()
 
+def fragment_sequences(sequences, fragment_length):
+    """
+    Splits each sequence into fragments of the given length and calculates GC content analysis.
+    Returns a list of (Fragment Name, Fragment Sequence, Parent Name, Fragment Index, Fragment Length, Analysis Data).
+    """
+    fragments = []
+    for name, seq in sequences:
+        seq = sanitize_sequence(seq)
+        for i in range(0, len(seq), fragment_length):
+            frag_seq = seq[i:i+fragment_length]
+            if len(frag_seq) == fragment_length:
+                frag_name = f"{name}_frag_{i//fragment_length+1}"
+                # Calculate GC content analysis for the fragment
+                analysis = analyze_sequence(frag_name, frag_seq)
+                fragments.append((frag_name, frag_seq, name, i//fragment_length+1, fragment_length, analysis))
+    return fragments
+
+def export_fragments_to_excel(fragments):
+    # Create a comprehensive DataFrame with all analysis data
+    data = []
+    for frag_name, frag_seq, parent, idx, frag_len, analysis in fragments:
+        row = {
+            "Gene Name": frag_name,
+            "Sequence": frag_seq,
+            "Parent Name": parent,
+            "Fragment Index": idx,
+            "Fragment Length": frag_len,
+            "Length": analysis.get("Length", len(frag_seq)),
+            "A Count": analysis.get("A Count", 0),
+            "T Count": analysis.get("T Count", 0),
+            "G Count": analysis.get("G Count", 0),
+            "C Count": analysis.get("C Count", 0),
+            "A %": analysis.get("A %", 0),
+            "T %": analysis.get("T %", 0),
+            "G %": analysis.get("G %", 0),
+            "C %": analysis.get("C %", 0),
+            "GC %": analysis.get("GC %", 0),
+            "AT %": analysis.get("AT %", 0)
+        }
+        data.append(row)
+    
+    df = pd.DataFrame(data)
+    towrite = BytesIO()
+    with pd.ExcelWriter(towrite, engine='openpyxl') as writer:
+        df.to_excel(writer, index=False, sheet_name='Fragments with Analysis')
+        workbook = writer.book
+        worksheet = writer.sheets['Fragments with Analysis']
+        
+        # Auto-adjust columns' width
+        for column in worksheet.columns:
+            max_length = 0
+            column = [cell for cell in column]
+            for cell in column:
+                try:
+                    if len(str(cell.value)) > max_length:
+                        max_length = len(str(cell.value))
+                except:
+                    pass
+            adjusted_width = (max_length + 2)
+            worksheet.column_dimensions[column[0].column_letter].width = adjusted_width
+        
+        # Add formatting to headers
+        for row in worksheet.iter_rows(min_row=1, max_row=1):
+            for cell in row:
+                cell.font = cell.font.copy(bold=True)
+    
+    towrite.seek(0)
+    return towrite
+
+
+def export_fragments_to_fasta(fragments):
+    output = io.StringIO()
+    for frag_name, frag_seq, parent, idx, frag_len, analysis in fragments:
+        # Create a comprehensive description with all analysis data
+        description = f"parent={parent} idx={idx} len={frag_len} "
+        description += f"GC_Content={analysis.get('GC %', 0):.2f}% "
+        description += f"A={analysis.get('A Count', 0)}({analysis.get('A %', 0):.2f}%) "
+        description += f"T={analysis.get('T Count', 0)}({analysis.get('T %', 0):.2f}%) "
+        description += f"G={analysis.get('G Count', 0)}({analysis.get('G %', 0):.2f}%) "
+        description += f"C={analysis.get('C Count', 0)}({analysis.get('C %', 0):.2f}%)"
+        
+        output.write(f">{frag_name} {description}\n{frag_seq}\n")
+    return output.getvalue()
+
+
+def export_fragments_to_genbank(fragments):
+    output = io.StringIO()
+    for frag_name, frag_seq, parent, idx, frag_len, analysis in fragments:
+        output.write(f"LOCUS       {frag_name} {frag_len} bp    DNA     linear\n")
+        output.write(f"DEFINITION  Fragment of {parent}, index {idx}\n")
+        output.write(f"ACCESSION   {frag_name}\n")
+        output.write(f"VERSION     {frag_name}\n")
+        output.write(f"SOURCE      .\n")
+        output.write(f"  ORGANISM  .\n")
+        output.write(f"            .\n")
+        output.write("FEATURES             Location/Qualifiers\n")
+        output.write(f"     source          1..{frag_len}\n")
+        output.write('                     /organism="."\n')
+        output.write('                     /mol_type="genomic DNA"\n')
+        output.write(f'                     /note="Fragment of {parent}, index {idx}"\n')
+        output.write(f'                     /note="GC Content: {analysis.get("GC %", 0):.2f}%"\n')
+        output.write(f'                     /note="A Count: {analysis.get("A Count", 0)} ({analysis.get("A %", 0):.2f}%)"\n')
+        output.write(f'                     /note="T Count: {analysis.get("T Count", 0)} ({analysis.get("T %", 0):.2f}%)"\n')
+        output.write(f'                     /note="G Count: {analysis.get("G Count", 0)} ({analysis.get("G %", 0):.2f}%)"\n')
+        output.write(f'                     /note="C Count: {analysis.get("C Count", 0)} ({analysis.get("C %", 0):.2f}%)"\n')
+        output.write(f'                     /note="AT Content: {analysis.get("AT %", 0):.2f}%"\n')
+        output.write("ORIGIN\n")
+        for i in range(0, len(frag_seq), 60):
+            chunk = frag_seq[i:i+60]
+            output.write(f"     {i+1:9d} {chunk}\n")
+        output.write("//\n")
+    return output.getvalue()
+
 def main():
     st.set_page_config(page_title="GC Content Calculator", page_icon=None, layout="wide")
     
+    # Load custom CSS
+    load_css()
+    
     # Password protection
     if 'authenticated' not in st.session_state:
-        st.session_state['authenticated'] = False
+        st.session_state.authenticated = False
     
-    if not st.session_state['authenticated']:
+    if not st.session_state.authenticated:
+        # Login screen
         st.markdown("""
-            <h1 style='text-align: center; color: #6c63ff;'>🔐 DNA Sequence GC Content Calculator</h1>
-            <h3 style='text-align: center; color: #ff6b6b;'>Authentication Required</h3>
+            <div class="main-header">
+                <h1>GC Content Calculator & Sequence Analysis Tool</h1>
+            </div>
         """, unsafe_allow_html=True)
         
-        st.markdown("---")
+        st.markdown("""
+            <div class="section-container">
+                <h2 class="section-header">Authentication Required</h2>
+            </div>
+        """, unsafe_allow_html=True)
         
-        # Create a centered login form
+        # Center the login form
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
             st.markdown("""
-                <div style='text-align: center; padding: 20px; border: 2px solid #6c63ff; border-radius: 10px; background-color: #f8f9fa;'>
-                    <h4>🔒 Please enter the password to access the application</h4>
+                <div style='text-align: center; margin: 2rem 0;'>
+                    <h3>Please enter the password to access the application</h3>
                 </div>
             """, unsafe_allow_html=True)
             
             password = st.text_input("Password", type="password", key="password_input")
             
-            col_a, col_b, col_c = st.columns([1, 1, 1])
-            with col_b:
-                if st.button("🔓 Login", use_container_width=True):
-                    if password == "TroyDNA2024":
-                        st.session_state['authenticated'] = True
-                        st.rerun()
-                    else:
-                        st.error("❌ Incorrect password. Please try again.")
+            if st.button("Login", key="login_button"):
+                if password == "TroyDNA2024":
+                    st.session_state.authenticated = True
+                    st.success("Authentication successful! Redirecting...")
+                    st.rerun()
+                else:
+                    st.error("Incorrect password. Please try again.")
             
-            st.markdown("---")
-            st.info("💡 **Hint**: The password is related to Troy University and DNA analysis.")
-            
-            # Add some DNA-themed styling
             st.markdown("""
-                <div style='text-align: center; margin-top: 30px;'>
-                    <p style='color: #6c63ff; font-style: italic;'>
-                        🧬 Unlock the power of DNA sequence analysis 🧬
-                    </p>
+                <div style='text-align: center; margin-top: 2rem; color: #bdc3c7;'>
+                    <p>Developed by Shubh Rakesh Nahar | Troy University</p>
                 </div>
             """, unsafe_allow_html=True)
         
         return
     
-    # Main application content (only shown after authentication)
+    # Main application (only shown after authentication)
+    # Professional header with gradient background
     st.markdown("""
-        <h1 style='text-align: center; color: #6c63ff;'>🧬 GC Content Calculator</h1>
+        <div class="main-header">
+            <h1>GC Content Calculator & Sequence Analysis Tool</h1>
+        </div>
     """, unsafe_allow_html=True)
-    
-    # Add logout button in sidebar
-    if st.sidebar.button("🚪 Logout"):
-        st.session_state['authenticated'] = False
-        st.rerun()
 
     sequences = []  # Ensure sequences is always defined
 
     # Sidebar with logo, navigation, and about info
     st.sidebar.image("https://cdn-icons-png.flaticon.com/512/616/616494.png", width=100)
     st.sidebar.title("Navigation")
-    with st.sidebar.expander("About this app"):
-        st.write("""
-        This tool calculates GC content and provides interactive visualizations for DNA sequences. 
+    
+    # Add logout button to sidebar
+    if st.sidebar.button("Logout"):
+        st.session_state.authenticated = False
+        st.rerun()
+    
+    with st.sidebar.expander("About this Application"):
+        st.markdown("""
+        <div style='background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px; border: 1px solid rgba(52,152,219,0.3);'>
+        This professional tool calculates GC content and provides comprehensive analysis for DNA sequences. 
         Upload your data or enter sequences manually to explore nucleotide composition, GC content, and more. 
         
-        **Made by Shubh Rakesh Nahar, Troy University.**
-        """)
+        **Developed by Shubh Rakesh Nahar, Troy University.**
+        </div>
+        """, unsafe_allow_html=True)
+    
     # Fun facts about DNA/genes/sequences
     facts = [
         "The human genome contains about 3 billion base pairs.",
@@ -580,14 +950,14 @@ def main():
     ]
     if 'fun_fact_idx' not in st.session_state:
         st.session_state['fun_fact_idx'] = random.randint(0, len(facts)-1)
-    if st.sidebar.button("Show another fun fact"):
+    if st.sidebar.button("Show Another Fun Fact"):
         prev_idx = st.session_state['fun_fact_idx']
         new_idx = prev_idx
         while new_idx == prev_idx:
             new_idx = random.randint(0, len(facts)-1)
         st.session_state['fun_fact_idx'] = new_idx
         st.rerun()
-    st.sidebar.success(f"Fun Fact: {facts[st.session_state['fun_fact_idx']]}")
+    st.sidebar.success(f"**Fun Fact:** {facts[st.session_state['fun_fact_idx']]}")
 
     # Glossary of Bioinformatics Terms
     glossary = {
@@ -614,14 +984,36 @@ def main():
     # Tutorial Mode
     with st.sidebar.expander("Tutorial / Step-by-Step Guide"):
         st.markdown("""
-        **How to use the GC Content Calculator:**
-        1. **Choose Input Method:** Select how you want to input your sequences (CSV/Excel, FASTA, GenBank, or Manual Entry).
-        2. **Upload or Enter Sequences:** Provide your DNA sequences using the chosen method.
-        3. **Analyze:** Click 'Calculate GC Content' to process your sequences.
-        4. **Explore Results:** View tables and interactive plots in the main area.
-        5. **Export:** Download your results in Excel, CSV, JSON, FASTA, or GenBank format.
-        6. **Fun Fact:** Click 'Show another fun fact' for a new DNA/genomics fact!
-        """)
+        <div style='background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px; border: 1px solid rgba(52,152,219,0.3);'>
+        <h4 style='margin-top:0;'>How to Use the GC Content Calculator and Sequence Fragmenter</h4>
+        <p>
+        This application allows you to analyze DNA sequences for GC content and nucleotide composition, as well as to split sequences into defined-length fragments with full analysis. Follow these steps to use the tools effectively:
+        </p>
+        <p>
+        <b>1. Choose Your Input Method:</b><br>
+        You can upload your DNA sequences using a CSV or Excel file, a FASTA file, a GenBank file, or by entering them manually. For file uploads, ensure your data includes both a gene name and a sequence for each entry.
+        </p>
+        <p>
+        <b>2. Analyze Sequences:</b><br>
+        After uploading or entering your sequences, click the "Calculate GC Content" button. The application will process your data and display a summary table, visualizations, and nucleotide composition statistics.
+        </p>
+        <p>
+        <b>3. Export Results:</b><br>
+        Once the analysis is complete, you can download your results in Excel, FASTA, GenBank, or as a ZIP archive. Use the export section to select your preferred format.
+        </p>
+        <p>
+        <b>4. Use the Sequence Fragmenter Tool:</b><br>
+        Open the "Sequence Fragmenter (Split Tool)" section in the sidebar. Choose your input method and upload or enter your sequences. Select the desired fragment length. When you click "Split and Export Fragments," the tool will split each sequence into fragments of the specified length and calculate GC content and nucleotide statistics for each fragment. You can then download the results in Excel, FASTA, or GenBank format, each including the full analysis for every fragment.
+        </p>
+        <p>
+        <b>5. Additional Features:</b><br>
+        The sidebar also provides a random sequence generator for practice, a glossary of bioinformatics terms, and fun facts about DNA and genomics.
+        </p>
+        <p>
+        If you need to log out, use the "Logout" button in the sidebar. For any step, ensure your input data is correctly formatted to avoid errors during analysis.
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
 
     # Random Sequence Generator
     with st.sidebar.expander("Random Sequence Generator"):
@@ -735,171 +1127,354 @@ def main():
         sequences.extend(st.session_state['random_sequences'])
         st.session_state['random_sequences'] = [] # Clear after adding
 
+    # Main content area with professional styling
     st.markdown("---")
-    st.markdown("#### Upload your data or enter sequences manually below.")
-    st.info("You can input up to 1000 sequences at a time (CSV, Excel, FASTA, GenBank, or manual entry). If you upload more, only the first 1000 will be processed.")
+    
+    # Main Analysis Section
+    with st.container():
+        st.markdown("""
+            <div class="section-container">
+                <h2 class="section-header">Sequence Analysis & GC Content Calculation</h2>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        st.info("**Professional Tip:** You can input up to 1000 sequences at a time (CSV, Excel, FASTA, GenBank, or manual entry). If you upload more, only the first 1000 will be processed.")
 
-    input_method = st.radio("Choose input method", ["Upload CSV/Excel", "Upload FASTA", "Upload GenBank", "Manual Entry"])
+        input_method = st.radio("Choose input method", ["Upload CSV/Excel", "Upload FASTA", "Upload GenBank", "Manual Entry"])
 
-    if input_method == "Upload CSV/Excel":
-        uploaded_file = st.file_uploader("Upload a CSV or Excel file with 'Gene Name' and 'Sequence' columns", type=["csv", "xlsx", "xls"])
-        if uploaded_file:
-            try:
-                uploaded_file.seek(0) # Ensure pointer is at the start
-                if uploaded_file.name.endswith((".xlsx", ".xls")):
-                    df = pd.read_excel(uploaded_file)
-                else:
-                    df = pd.read_csv(uploaded_file)
-                
-                if "Gene Name" in df.columns and "Sequence" in df.columns:
-                    # Convert sequences to strings and handle any NaN values
-                    df['Sequence'] = df['Sequence'].fillna('').astype(str)
-                    df['Gene Name'] = df['Gene Name'].fillna('').astype(str)
-                    if len(df) > 1000:
-                        st.toast("More than 1000 sequences detected. Only the first 1000 will be processed.", icon=None)
-                    sequences = list(zip(df["Gene Name"], df["Sequence"]))[:1000]
-                else:
-                    st.toast("File must contain 'Gene Name' and 'Sequence' columns.", icon=None)
-            except Exception as e:
-                st.toast(f"Error reading file: {str(e)}", icon=None)
-
-    elif input_method == "Upload FASTA":
-        fasta_file = st.file_uploader("Upload a FASTA file", type=["fasta", "fa"])
-        if fasta_file:
-            fasta_file.seek(0)  # Reset pointer
-            try:
-                sequences = process_fasta(fasta_file, max_sequences=1000)
-                if len(sequences) == 0:
-                    st.warning("No sequences found in the uploaded FASTA file.")
-                elif len(sequences) == 1000:
-                    st.toast("More than 1000 sequences detected. Only the first 1000 will be processed.", icon=None)
-            except Exception as e:
-                st.toast(f"Error processing FASTA file: {str(e)}", icon=None)
-
-    elif input_method == "Upload GenBank":
-        gb_file = st.file_uploader("Upload a GenBank file", type=["gb", "gbk"])
-        if gb_file:
-            gb_file.seek(0)  # Reset pointer
-            try:
-                sequences = process_genbank(gb_file, max_sequences=1000)
-                if len(sequences) == 0:
-                    st.warning("No sequences found in the uploaded GenBank file.")
-                elif len(sequences) == 1000:
-                    st.toast("More than 1000 sequences detected. Only the first 1000 will be processed.", icon=None)
-            except Exception as e:
-                st.toast(f"Error processing GenBank file: {str(e)}", icon=None)
-
-    elif input_method == "Manual Entry":
-        num = st.number_input("How many sequences would you like to enter?", min_value=1, max_value=1000, value=1)
-        manual_entries = []
-        for i in range(num):
-            st.markdown(f"**Sequence {i+1}**")
-            name = st.text_input(f"Gene Name {i+1}", key=f"name_{i}")
-            seq = st.text_area(f"Sequence {i+1}", key=f"seq_{i}")
-            if name and seq:
-                manual_entries.append((name, seq))
-        sequences.extend(manual_entries)
-
-    # Add random sequences to main input if present
-    if 'random_sequences' in st.session_state and st.session_state['random_sequences']:
-        sequences.extend(st.session_state['random_sequences'])
-        st.session_state['random_sequences'] = [] # Clear after adding
-
-    if sequences:
-        if st.button("Calculate GC Content"):
-            results = [analyze_sequence(name, seq) for name, seq in sequences]
-            result_df = pd.DataFrame(results)
-
-            if "Error" in result_df.columns:
-                st.toast("Some sequences were invalid and skipped.", icon=None)
-                result_df = result_df.dropna(subset=["Length"])
-
-            # Check if there are valid sequences for output
-            if len(result_df) == 0:
-                 st.warning("No valid sequences were processed.")
-            else:
-
-                # Conditional Visualization Display
-                if len(result_df) > 50:
-                    st.info("Analysis complete. Visualizations and on-page data table are disabled for more than 50 sequences to ensure performance. Please download your full results below.")
-                else:
-                    st.toast("Analysis complete!", icon=None)
-                    st.markdown("---")
-                    st.markdown("#### Results & Visualizations")
+        if input_method == "Upload CSV/Excel":
+            uploaded_file = st.file_uploader("Upload a CSV or Excel file with 'Gene Name' and 'Sequence' columns", type=["csv", "xlsx", "xls"])
+            if uploaded_file:
+                try:
+                    uploaded_file.seek(0) # Ensure pointer is at the start
+                    if uploaded_file.name.endswith((".xlsx", ".xls")):
+                        df = pd.read_excel(uploaded_file)
+                    else:
+                        df = pd.read_csv(uploaded_file)
                     
-                    with st.expander("Show Data Table", expanded=True):
-                        st.dataframe(result_df, use_container_width=True)
-                    with st.expander("Show GC Content Heatmap"):
-                        if len(result_df) > 0:
-                            create_gc_heatmap(result_df)
-                        else:
-                            st.info("No data to plot.")
-                    with st.expander("Show Sequence Logo"):
-                        # Use the original 'sequences' list for the logo, not result_df
-                        if len(sequences) > 1 and all(len(seq) > 0 for _, seq in sequences):
-                            # Filter original sequences based on names in result_df to match analysis results
-                            valid_gene_names = result_df['Gene Name'].tolist()
-                            sequences_for_logo = [(name, seq) for name, seq in sequences if name in valid_gene_names]
-                            if len(sequences_for_logo) > 1:
-                                create_sequence_logo([seq for _, seq in sequences_for_logo])
+                    if "Gene Name" in df.columns and "Sequence" in df.columns:
+                        # Convert sequences to strings and handle any NaN values
+                        df['Sequence'] = df['Sequence'].fillna('').astype(str)
+                        df['Gene Name'] = df['Gene Name'].fillna('').astype(str)
+                        if len(df) > 1000:
+                            st.toast("More than 1000 sequences detected. Only the first 1000 will be processed.", icon=None)
+                        sequences = list(zip(df["Gene Name"], df["Sequence"]))[:1000]
+                    else:
+                        st.toast("File must contain 'Gene Name' and 'Sequence' columns.", icon=None)
+                except Exception as e:
+                    st.toast(f"Error reading file: {str(e)}", icon=None)
+
+        elif input_method == "Upload FASTA":
+            fasta_file = st.file_uploader("Upload a FASTA file", type=["fasta", "fa"])
+            if fasta_file:
+                fasta_file.seek(0)  # Reset pointer
+                try:
+                    sequences = process_fasta(fasta_file, max_sequences=1000)
+                    if len(sequences) == 0:
+                        st.warning("No sequences found in the uploaded FASTA file.")
+                    elif len(sequences) == 1000:
+                        st.toast("More than 1000 sequences detected. Only the first 1000 will be processed.", icon=None)
+                except Exception as e:
+                    st.toast(f"Error processing FASTA file: {str(e)}", icon=None)
+
+        elif input_method == "Upload GenBank":
+            gb_file = st.file_uploader("Upload a GenBank file", type=["gb", "gbk"])
+            if gb_file:
+                gb_file.seek(0)  # Reset pointer
+                try:
+                    sequences = process_genbank(gb_file, max_sequences=1000)
+                    if len(sequences) == 0:
+                        st.warning("No sequences found in the uploaded GenBank file.")
+                    elif len(sequences) == 1000:
+                        st.toast("More than 1000 sequences detected. Only the first 1000 will be processed.", icon=None)
+                except Exception as e:
+                    st.toast(f"Error processing GenBank file: {str(e)}", icon=None)
+
+        elif input_method == "Manual Entry":
+            num = st.number_input("How many sequences would you like to enter?", min_value=1, max_value=1000, value=1)
+            manual_entries = []
+            for i in range(num):
+                st.markdown(f"**Sequence {i+1}**")
+                name = st.text_input(f"Gene Name {i+1}", key=f"name_{i}")
+                seq = st.text_area(f"Sequence {i+1}", key=f"seq_{i}")
+                if name and seq:
+                    manual_entries.append((name, seq))
+            sequences.extend(manual_entries)
+
+        # Add random sequences to main input if present
+        if 'random_sequences' in st.session_state and st.session_state['random_sequences']:
+            sequences.extend(st.session_state['random_sequences'])
+            st.session_state['random_sequences'] = [] # Clear after adding
+
+        if sequences:
+            if st.button("Calculate GC Content"):
+                results = [analyze_sequence(name, seq) for name, seq in sequences]
+                result_df = pd.DataFrame(results)
+
+                if "Error" in result_df.columns:
+                    st.toast("Some sequences were invalid and skipped.", icon=None)
+                    result_df = result_df.dropna(subset=["Length"])
+
+                # Check if there are valid sequences for output
+                if len(result_df) == 0:
+                     st.warning("No valid sequences were processed.")
+                else:
+
+                    # Conditional Visualization Display
+                    if len(result_df) > 50:
+                        st.info("Analysis complete. Visualizations and on-page data table are disabled for more than 50 sequences to ensure performance. Please download your full results below.")
+                    else:
+                        st.toast("Analysis complete!", icon=None)
+                        st.markdown("---")
+                        
+                        # Results Section
+                        st.markdown("""
+                            <div class="section-container">
+                                <h2 class="section-header">Results & Visualizations</h2>
+                            </div>
+                        """, unsafe_allow_html=True)
+                        
+                        with st.expander("Show Data Table", expanded=True):
+                            st.dataframe(result_df, use_container_width=True)
+                        with st.expander("Show GC Content Heatmap"):
+                            if len(result_df) > 0:
+                                create_gc_heatmap(result_df)
                             else:
-                                st.info("Not enough valid sequences to plot a sequence logo.")
-                        else:
-                            st.info("Not enough data to plot a sequence logo.")
+                                st.info("No data to plot.")
+                        with st.expander("Show Sequence Logo"):
+                            # Use the original 'sequences' list for the logo, not result_df
+                            if len(sequences) > 1 and all(len(seq) > 0 for _, seq in sequences):
+                                # Filter original sequences based on names in result_df to match analysis results
+                                valid_gene_names = result_df['Gene Name'].tolist()
+                                sequences_for_logo = [(name, seq) for name, seq in sequences if name in valid_gene_names]
+                                if len(sequences_for_logo) > 1:
+                                    create_sequence_logo([seq for _, seq in sequences_for_logo])
+                                else:
+                                    st.info("Not enough valid sequences to plot a sequence logo.")
+                            else:
+                                st.info("Not enough data to plot a sequence logo.")
 
-                    with st.expander("Show Interactive Plots"):
-                        if len(result_df) > 1:
-                            create_interactive_plots(result_df)
-                        else:
-                            st.info("Not enough data to plot interactive plots.")
+                        with st.expander("Show Interactive Plots"):
+                            if len(result_df) > 1:
+                                create_interactive_plots(result_df)
+                            else:
+                                st.info("Not enough data to plot interactive plots.")
 
-                # Export Results section - always shown if there are results
-                st.markdown("This section should always appear if there are results.") # Added for debugging
-                st.markdown("---") # Add a separator before export options
-                st.subheader("Export Results")
-                output_filename = st.text_input("Enter output file name (without extension):", "gc_output_v4", key="export_filename")
+                    # Export Results section - always shown if there are results
+                    st.markdown("---")
+                    st.markdown("""
+                        <div class="section-container">
+                            <h2 class="section-header">Export Results</h2>
+                        </div>
+                    """, unsafe_allow_html=True)
+                    
+                    output_filename = st.text_input("Enter output file name (without extension):", "gc_output_v4", key="export_filename")
+                    
+                    # Export buttons in columns for better layout
+                    col1, col2, col3, col4 = st.columns(4)
+                    
+                    with col1:
+                        if st.button("Export All Results"):
+                            zip_buffer = export_all_to_zip(result_df, output_filename)
+                            st.toast("All results exported as ZIP!", icon=None)
+                            st.download_button(
+                                label="Download All Results (ZIP)",
+                                data=zip_buffer,
+                                file_name=f"{output_filename}_all_results.zip",
+                                mime="application/zip"
+                            )
+                    
+                    with col2:
+                        excel_buffer = BytesIO()
+                        result_df.to_excel(excel_buffer, index=False, engine='openpyxl')
+                        excel_buffer.seek(0)
+                        st.download_button(
+                            label="Download Excel Only",
+                            data=excel_buffer,
+                            file_name=f"{output_filename}.xlsx",
+                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        )
+                    
+                    with col3:
+                        # FASTA export button
+                        # Use result_df for FASTA/GenBank exports to include only analyzed sequences
+                        fasta_sequences_to_export = [(row["Gene Name"], row["Sequence"]) for _, row in result_df.iterrows()]
+                        fasta_buffer = export_to_fasta(fasta_sequences_to_export, result_df)
+                        st.download_button(
+                            label="Download as FASTA",
+                            data=fasta_buffer,
+                            file_name=f"{output_filename}.fasta",
+                            mime="text/plain"
+                        )
+                    
+                    with col4:
+                        # GenBank export button
+                        gb_sequences_to_export = [(row["Gene Name"], row["Sequence"]) for _, row in result_df.iterrows()]
+                        gb_buffer = export_to_genbank(gb_sequences_to_export, result_df)
+                        st.download_button(
+                            label="Download as GenBank",
+                            data=gb_buffer,
+                            file_name=f"{output_filename}.gb",
+                            mime="text/plain"
+                        )
+
+    # Add Sequence Fragmenter tool to sidebar
+    with st.sidebar.expander("Sequence Fragmenter (Split Tool)"):
+        st.markdown("""
+        <div style='background: rgba(52,152,219,0.1); padding: 1rem; border-radius: 10px; border: 1px solid rgba(52,152,219,0.3); margin-bottom: 1rem;'>
+        <strong>Split sequences into fragments of a chosen length.</strong><br>
+        Output is compatible with TOOL-1 and available in multiple formats.
+        </div>
+        """, unsafe_allow_html=True)
+        
+        frag_input_method = st.radio("Input method for fragmenter", ["Upload CSV/Excel", "Upload FASTA", "Upload GenBank", "Manual Entry"], key="frag_input_method")
+        frag_sequences = []
+        
+        if frag_input_method == "Upload CSV/Excel":
+            frag_file = st.file_uploader("Upload a CSV or Excel file with 'Gene Name' and 'Sequence' columns", type=["csv", "xlsx", "xls"], key="frag_file")
+            if frag_file:
+                try:
+                    frag_file.seek(0)
+                    if frag_file.name.endswith((".xlsx", ".xls")):
+                        df = pd.read_excel(frag_file)
+                    else:
+                        df = pd.read_csv(frag_file)
+                    if "Gene Name" in df.columns and "Sequence" in df.columns:
+                        df['Sequence'] = df['Sequence'].fillna('').astype(str)
+                        df['Gene Name'] = df['Gene Name'].fillna('').astype(str)
+                        frag_sequences = list(zip(df["Gene Name"], df["Sequence"]))
+                        st.success(f"Successfully loaded {len(frag_sequences)} sequences from {frag_file.name}")
+                    else:
+                        st.warning("File must contain 'Gene Name' and 'Sequence' columns.")
+                except Exception as e:
+                    st.warning(f"Error reading file: {str(e)}")
+                    
+        elif frag_input_method == "Upload FASTA":
+            frag_fasta = st.file_uploader("Upload a FASTA file", type=["fasta", "fa"], key="frag_fasta")
+            if frag_fasta:
+                frag_fasta.seek(0)
+                frag_sequences = process_fasta(frag_fasta, max_sequences=1000)
+                if frag_sequences:
+                    st.success(f"Successfully loaded {len(frag_sequences)} sequences from FASTA file")
+                    
+        elif frag_input_method == "Upload GenBank":
+            frag_gb = st.file_uploader("Upload a GenBank file", type=["gb", "gbk"], key="frag_gb")
+            if frag_gb:
+                frag_gb.seek(0)
+                frag_sequences = process_genbank(frag_gb, max_sequences=1000)
+                if frag_sequences:
+                    st.success(f"Successfully loaded {len(frag_sequences)} sequences from GenBank file")
+                    
+        elif frag_input_method == "Manual Entry":
+            frag_num = st.number_input("How many sequences would you like to enter?", min_value=1, max_value=1000, value=1, key="frag_num")
+            frag_manual_entries = []
+            for i in range(frag_num):
+                st.markdown(f"**Sequence {i+1}**")
+                name = st.text_input(f"Gene Name {i+1}", key=f"frag_name_{i}")
+                seq = st.text_area(f"Sequence {i+1}", key=f"frag_seq_{i}")
+                if name and seq:
+                    frag_manual_entries.append((name, seq))
+            frag_sequences.extend(frag_manual_entries)
+            if frag_manual_entries:
+                st.success(f"Successfully entered {len(frag_manual_entries)} sequences")
                 
-                # Export buttons
-                if st.button("Export All Results"):
-                    zip_buffer = export_all_to_zip(result_df, output_filename)
-                    st.toast("All results exported as ZIP!", icon=None)
-                    st.download_button(
-                        label="Download All Results (ZIP)",
-                        data=zip_buffer,
-                        file_name=f"{output_filename}_all_results.zip",
-                        mime="application/zip"
-                    )
-                excel_buffer = BytesIO()
-                result_df.to_excel(excel_buffer, index=False, engine='openpyxl')
-                excel_buffer.seek(0)
-                st.download_button(
-                    label="Download Excel Only",
-                    data=excel_buffer,
-                    file_name=f"{output_filename}.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                )
-                # FASTA export button
-                # Use result_df for FASTA/GenBank exports to include only analyzed sequences
-                fasta_sequences_to_export = [(row["Gene Name"], row["Sequence"]) for _, row in result_df.iterrows()]
-                fasta_buffer = export_to_fasta(fasta_sequences_to_export, result_df)
-                st.download_button(
-                    label="Download as FASTA",
-                    data=fasta_buffer,
-                    file_name=f"{output_filename}.fasta",
-                    mime="text/plain"
-                )
-                # GenBank export button
-                gb_sequences_to_export = [(row["Gene Name"], row["Sequence"]) for _, row in result_df.iterrows()]
-                gb_buffer = export_to_genbank(gb_sequences_to_export, result_df)
-                st.download_button(
-                    label="Download as GenBank",
-                    data=gb_buffer,
-                    file_name=f"{output_filename}.gb",
-                    mime="text/plain"
-                )
+        # Fragment length selection with better styling
+        st.markdown("---")
+        st.markdown("**Fragment Configuration**")
+        frag_length = st.selectbox("Fragment length (nucleotides)", [25, 50, 100, 200, 400], key="frag_length")
+        
+        if frag_sequences:
+            st.info(f"Ready to process {len(frag_sequences)} sequences into {frag_length}-nucleotide fragments")
+            
+            if st.button("Split and Export Fragments", key="frag_button"):
+                with st.spinner("Processing fragments and calculating GC content..."):
+                    fragments = fragment_sequences(frag_sequences, frag_length)
+                    
+                if not fragments:
+                    st.warning("No fragments produced. Check your input sequences and fragment length.")
+                else:
+                    st.success(f"Successfully produced {len(fragments)} fragments of {frag_length} nucleotides each!")
+                    
+                    # Calculate overall statistics
+                    total_gc_content = sum(f[5].get("GC %", 0) for f in fragments)
+                    avg_gc_content = total_gc_content / len(fragments)
+                    
+                    # Display fragment statistics with GC content
+                    st.markdown("**Fragment Statistics:**")
+                    col1, col2 = st.columns(2)
+                    
+                    with col1:
+                        st.markdown(f"""
+                        - Total fragments: {len(fragments)}
+                        - Fragment length: {frag_length} nucleotides
+                        - Parent sequences: {len(set([f[2] for f in fragments]))}
+                        - Average GC content: {avg_gc_content:.2f}%
+                        """)
+                    
+                    with col2:
+                        # Show GC content distribution
+                        gc_values = [f[5].get("GC %", 0) for f in fragments]
+                        min_gc = min(gc_values)
+                        max_gc = max(gc_values)
+                        st.markdown(f"""
+                        - GC content range: {min_gc:.2f}% - {max_gc:.2f}%
+                        - High GC fragments (>60%): {sum(1 for gc in gc_values if gc > 60)}
+                        - Low GC fragments (<40%): {sum(1 for gc in gc_values if gc < 40)}
+                        """)
+                    
+                    # Export options in a more organized way
+                    st.markdown("**Download Options**")
+                    
+                    col1, col2 = st.columns(2)
+                    
+                    with col1:
+                        excel_buffer = export_fragments_to_excel(fragments)
+                        st.download_button(
+                            label="Excel Format (with Analysis)",
+                            data=excel_buffer,
+                            file_name=f"fragments_{frag_length}n_with_analysis.xlsx",
+                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        )
+                        
+                        fasta_buffer = export_fragments_to_fasta(fragments)
+                        st.download_button(
+                            label="FASTA Format (with Analysis)",
+                            data=fasta_buffer,
+                            file_name=f"fragments_{frag_length}n_with_analysis.fasta",
+                            mime="text/plain"
+                        )
+                    
+                    with col2:
+                        gb_buffer = export_fragments_to_genbank(fragments)
+                        st.download_button(
+                            label="GenBank Format (with Analysis)",
+                            data=gb_buffer,
+                            file_name=f"fragments_{frag_length}n_with_analysis.gb",
+                            mime="text/plain"
+                        )
+                        
+                        # Show a sample of the analysis data
+                        if len(fragments) > 0:
+                            st.markdown("**Sample Fragment Analysis:**")
+                            sample_frag = fragments[0]
+                            st.markdown(f"""
+                            **{sample_frag[0]}** (from {sample_frag[2]})
+                            - GC Content: {sample_frag[5].get('GC %', 0):.2f}%
+                            - A: {sample_frag[5].get('A Count', 0)} ({sample_frag[5].get('A %', 0):.2f}%)
+                            - T: {sample_frag[5].get('T Count', 0)} ({sample_frag[5].get('T %', 0):.2f}%)
+                            - G: {sample_frag[5].get('G Count', 0)} ({sample_frag[5].get('G %', 0):.2f}%)
+                            - C: {sample_frag[5].get('C Count', 0)} ({sample_frag[5].get('C %', 0):.2f}%)
+                            """)
+        else:
+            st.info("Please upload or enter sequences to begin fragmentation")
 
+    # Professional footer
     st.markdown("---")
-    st.markdown("<div style='text-align: center; color: #888;'>Made by Shubh Rakesh Nahar, Troy University </div>", unsafe_allow_html=True)
+    st.markdown("""
+        <div class="footer">
+            <p>Developed by Shubh Rakesh Nahar | Troy University | Professional DNA Sequence Analysis Tool</p>
+        </div>
+    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
