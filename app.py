@@ -1084,7 +1084,7 @@ def display_df_with_index_one(df, *args, **kwargs):
     st.dataframe(df, *args, **kwargs)
 
 def main():
-    st.set_page_config(page_title="SRNA (Smart Rapid Nucleotide Analysis)", page_icon=None, layout="wide")
+   st.set_page_config(page_title="SRNA", page_icon=None, layout="wide")
     
     # Load custom CSS
     load_css()
