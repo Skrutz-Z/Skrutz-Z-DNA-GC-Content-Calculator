@@ -552,13 +552,9 @@ def analyze_sequence(name, seq):
     c_count = seq.count('C')
     gc_count = g_count + c_count
     at_count = a_count + t_count
+    gt_count = g_count + t_count  # GT% = G% + T%
+    ca_count = c_count + a_count  # CA% = C% + A%
 
-    # Calculate dinucleotide counts (GT and CA)
-    gt_count = seq.count('GT')
-    ca_count = seq.count('CA')
-    # Number of possible dinucleotides is length - 1
-    num_dinucleotides = max(1, length - 1)  # Avoid division by zero
-    
     # Calculate Z-DNA propensity
     z_dna_propensity = calculate_z_dna_propensity(seq)
     
@@ -579,8 +575,8 @@ def analyze_sequence(name, seq):
         "C %": round((c_count / length) * 100, 2),
         "GC %": round((gc_count / length) * 100, 2),
         "AT %": round((at_count / length) * 100, 2),
-        "GT %": round((gt_count / num_dinucleotides) * 100, 2),
-        "CA %": round((ca_count / num_dinucleotides) * 100, 2),
+        "GT %": round((gt_count / length) * 100, 2),
+        "CA %": round((ca_count / length) * 100, 2),
         "Z-DNA Propensity %": round(z_dna_propensity, 2),
         # "Z-RNA Propensity %": round(z_rna_propensity, 2),
     }
@@ -2078,6 +2074,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
